@@ -10,6 +10,7 @@
 class JackDmeta(type):
     def __init__(self, name, bases, attrs):
         # collect the methods in a list
+        print(bases)
         methods = []
         for item, value in attrs.items():
             if hasattr(value, "__call__"):
@@ -23,10 +24,11 @@ class JackDmeta(type):
             raise TypeError(errorstr)
 
 
-class MyRedundantclass(metaclass=JackDmeta):
+# The following class can not even be defined without throwing an exception
+class MyRedundantclass(class=Metaclass):
     """
     A prime example of a redundant class; just a half-hearted reimplementation
-    of Python's list
+    of a Python list
     """
     def __init__(self, data=[1, 2, 3]):
         self.data = data
@@ -34,3 +36,6 @@ class MyRedundantclass(metaclass=JackDmeta):
     def getitembyindex(self, index=2):
         index = min(index, len(self.data))
         return self.data[index]
+
+
+
